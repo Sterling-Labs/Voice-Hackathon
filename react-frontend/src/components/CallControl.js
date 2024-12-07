@@ -23,8 +23,12 @@ function CallControl() {
   const [error, setError] = useState(null);
 
   // Use the static config object
+<<<<<<< HEAD
   // const { isConnected, startCall, endCall } = useFBCall(CALL_CONFIG_PROMPT);
   const { isConnected, startCall, endCall } = useFBCall(CALL_CONFIG_CUSTOM_LLM);
+=======
+  const { isConnected, startCall, endCall, activeConnection} = useFBCall(CALL_CONFIG_PROMPT);
+>>>>>>> af241f470fc897c2f437778d159ce1a3fc422249
 
   const handleStartCall = async () => {
     try {

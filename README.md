@@ -87,10 +87,8 @@ Here's how you can setup a custom backend.
 1. `python3 -m venv env`
 2. `source env/bin/activate`
 3. `pip install -r requirements.txt`
-4. Then run the sample custom backend.
-```bash
-python sample_custom_backend.py
-```
+4. Then run the sample custom backend: `python3 sample_custom_backend.py`
+
 
 In this you'll see there are two endpoints;
 - `/chat`: This is where you will recieve what the user said and you stream back your agents response.

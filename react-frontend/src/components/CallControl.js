@@ -3,19 +3,19 @@ import { useFBCall } from 'use-fb-call';
 
 // Move configuration outside component to prevent recreation
 const SESSION_ID = Math.random().toString(36).substring(2, 15);
-const focusBuddyBackend = "https://managerdev.therapybuddy.org";
+const focusBuddyBackend = "https://hackathon.focusbuddy.ai";
 
 const CALL_CONFIG_CUSTOM_LLM = {
   session_id: SESSION_ID,
-  custom_llm_endpoint: "https://this-is-a-test-endpoint.com",
+  custom_llm_endpoint: "https://298a-2601-645-8087-1bc0-5454-a4b1-eb58-d926.ngrok-free.app",
   // focusBuddyBackend: focusBuddyBackend
 };
 
 const CALL_CONFIG_PROMPT = {
   session_id: SESSION_ID,
-  org_id: "1234567890",
-  prompt_key: "my-prompt-key",
-  // focusBuddyBackend: focusBuddyBackend
+  org_id: "test",
+  prompt_key: "test",
+  focusBuddyBackend: focusBuddyBackend
 };
 
 function CallControl() {
@@ -23,7 +23,8 @@ function CallControl() {
   const [error, setError] = useState(null);
 
   // Use the static config object
-  const { isConnected, startCall, endCall } = useFBCall(CALL_CONFIG_PROMPT);
+  // const { isConnected, startCall, endCall } = useFBCall(CALL_CONFIG_PROMPT);
+  const { isConnected, startCall, endCall } = useFBCall(CALL_CONFIG_CUSTOM_LLM);
 
   const handleStartCall = async () => {
     try {

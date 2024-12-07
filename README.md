@@ -42,29 +42,17 @@ There's two basic steps to using your own prompt
 
 You are going to make a POST request to our endpoint specifying your prompt (prompt_value) and your org_id and a prompt_key - which is what you will use to refer to this prompt in the `useFBCall` hook.
 
-### Endpoint
-`POST https://hackathon.focusbuddy.ai/api/hackathon-register-prompt`
-
-### Request Body
-```json
-{
-    "prompt_key": "string",    // Identifier for this specific prompt
-    "prompt": "string",        // The actual prompt content
-    "org_id": "string"        // Your team's unique identifier
-}
-```
-
 ### Sample CURL Request
 ```bash
-curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" -H "Content-Type: application/json" -d '{"prompt_key": "builder-at-hackathon", "prompt": "You are a builder at a hackthon excited to build a voice AI project", "org_id": "coolteam12345"}'
+curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" 
+-H "Content-Type: application/json" -d '
+{
+  "org_id": "coolteam12345", # use your team name followed by some random numbers to ensure uniqueness
+  "prompt_key": "builder-at-hackathon", # a unique identifier for this prompt
+  "prompt": "You are a builder at a hackthon excited to build a voice AI project", # the prompt content
+}
+'
 ```
-
-### Org Id for hackathon teams
-For the `org_id`, please use your team name followed by some random numbers to ensure uniqueness. For example:
-coolteam12345
-voicehackers98765
-promptengineers44444
-This doesn't need to be fancy - it just needs to be unique from other teams!
 
 ### Behavior
 - If a prompt with the same prompt_key and org_id already exists, it will be updated
@@ -77,7 +65,7 @@ You can now start a call using your prompt by specifying the org_id and prompt_k
 
 ### Sample Usage
 ```typescript
-const {sConnected, startCall, endCall, activeConnection} = useFBCall({
+const {isConnected, startCall, endCall, activeConnection} = useFBCall({
     session_id: SESSION_ID,
     org_id: "coolTeam12345",
     prompt_key: "builder-at-hackathon",

@@ -43,7 +43,9 @@ There's two basic steps to using your own prompt
 You are going to make a POST request to our endpoint specifying your prompt (prompt_value) and your org_id and a prompt_key - which is what you will use to refer to this prompt in the `useFBCall` hook.
 
 ### Sample CURL Request
-```bash
+`# org_id: Use your team name followed by some random numbers to ensure uniqueness
+# prompt_key: A unique identifier for this prompt
+# prompt: The prompt content
 curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" \
 -H "Content-Type: application/json" \
 -d '{
@@ -51,7 +53,6 @@ curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" \
   "prompt_key": "builder-at-hackathon",
   "prompt": "You are a builder at a hackathon excited to build a voice AI project"
 }'
-```
 Parameters:
 - org_id: your team name followed by some random numbers to ensure uniqueness
 - prompt_key: a unique identifier for this prompt

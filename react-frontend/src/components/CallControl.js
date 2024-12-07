@@ -7,7 +7,7 @@ const focusBuddyBackend = "https://managerdev.therapybuddy.org";
 
 const CALL_CONFIG_CUSTOM_LLM = {
   session_id: SESSION_ID,
-  custom_llm_endpoint: "https://this-is-a-test-endpoint.com",
+  custom_llm_endpoint: "http://this-is-a-test-endpoint.com",
   // focusBuddyBackend: focusBuddyBackend
 };
 
@@ -23,7 +23,7 @@ function CallControl() {
   const [error, setError] = useState(null);
 
   // Use the static config object
-  const { isConnected, startCall, endCall } = useFBCall(CALL_CONFIG_PROMPT);
+  const { isConnected, startCall, endCall, activeConnection} = useFBCall(CALL_CONFIG_PROMPT);
 
   const handleStartCall = async () => {
     try {

@@ -84,8 +84,10 @@ Here's how you can setup a custom backend.
 
 ## Quick Start with sample_custom_backend.py
 
-Start by pip installing fastapi, openai and pydantic.
-Then run the sample custom backend.
+1. `python3 -m venv env`
+2. `source env/bin/activate`
+3. `pip install -r requirements.txt`
+4. Then run the sample custom backend.
 ```bash
 python sample_custom_backend.py
 ```

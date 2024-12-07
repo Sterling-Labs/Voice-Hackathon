@@ -10,8 +10,8 @@ function CallControl() {
   // Call with a single prompt
   const { isConnected, startCall, endCall, activeConnection} = useFBCall({
     session_id: SESSION_ID,
-    org_id: "1234567890",
-    prompt_key: "my-prompt-key",
+    org_id: "test",
+    prompt_key: "test",
   });
 
   // Call with a custom backend

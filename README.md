@@ -44,15 +44,18 @@ You are going to make a POST request to our endpoint specifying your prompt (pro
 
 ### Sample CURL Request
 ```bash
-curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" 
--H "Content-Type: application/json" -d '
-{
-  "org_id": "coolteam12345", # use your team name followed by some random numbers to ensure uniqueness
-  "prompt_key": "builder-at-hackathon", # a unique identifier for this prompt
-  "prompt": "You are a builder at a hackthon excited to build a voice AI project", # the prompt content
-}
-'
+curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" \
+-H "Content-Type: application/json" \
+-d '{
+  "org_id": "coolteam12345",
+  "prompt_key": "builder-at-hackathon",
+  "prompt": "You are a builder at a hackathon excited to build a voice AI project"
+}'
 ```
+Parameters:
+- org_id: your team name followed by some random numbers to ensure uniqueness
+- prompt_key: a unique identifier for this prompt
+- prompt: the prompt content
 
 ### Behavior
 - If a prompt with the same prompt_key and org_id already exists, it will be updated

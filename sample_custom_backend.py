@@ -74,8 +74,6 @@ def generate_stream(session_id: str, detected_speech: str, system_message: Optio
                 assistant_message += content
                 print("Generated content chunk:", content)
                 yield f"data: {json.dumps({'content': content})}\n\n"
-        
-        yield f"data: [DONE]\n\n"
 
     except Exception as e:
         print(f"Error in generate(): {str(e)}")

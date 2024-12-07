@@ -96,6 +96,7 @@ In this you'll see there are two endpoints;
 
 ## Use ngrok to create a public endpoint to your custom backend
 You will need to use ngrok to create a public endpoint to your custom backend.
+Just [make an account on their site and follow the setup instructions](https://dashboard.ngrok.com/get-started/setup/macos)
 
 ## Use your custom backend in the `useFBCall` hook
 ```typescript

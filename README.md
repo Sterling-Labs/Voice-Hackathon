@@ -106,4 +106,10 @@ const {isConnected, startCall, endCall, activeConnection} = useFBCall({
 });
 ```
 
+# FAQs
+## Muting and unmuting
+You can mute and unmute the user by calling `activeConnection.mute(true)` and `activeConnection.mute(false)`
+activeConnection is returned from the `useFBCall` hook and is null when there is no an active call.
+It's a wrapper around the Twilio SDK's `Connection` object. You can see all the methods and properties available on it [here](https://www.twilio.com/docs/voice/sdks/javascript/v1/connection#method-reference).
+
 

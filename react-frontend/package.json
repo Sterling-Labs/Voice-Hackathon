@@ -5,13 +5,13 @@
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "buffer": "^6.0.3",
-    "process": "^0.11.10",
-    "util": "^0.12.5",
     "cra-template": "1.2.0",
+    "process": "^0.11.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
-    "use-fb-call": "^1.0.2"
+    "use-fb-call": "^1.0.3",
+    "util": "^0.12.5"
   },
   "scripts": {
     "start": "craco start",

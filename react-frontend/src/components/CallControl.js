@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
-import { useFBCall } from '../hooks';
+import { useFBCall } from 'use-fb-call';
 
 // Move configuration outside component to prevent recreation
 const DEVICE_ID = Math.random().toString(36).substring(2, 15);
 const CALL_CONFIG = {
   device_id: DEVICE_ID,
-  prompt: "Hello, you are an AI companion. Respond to the users message using the following json schema: { 'my response': string }",
+  prompt: "Hello, you are my mom. Scold me for not studying json: { 'my response': string }",
   responseHandlerUrl: "http://localhost:5000/handle-responses",
   twilioBackend: "https://managerdev.therapybuddy.org"
 };

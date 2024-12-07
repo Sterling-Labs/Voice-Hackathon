@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
-import openai
 import json
 from typing import Dict, Generator, Optional
 from pydantic import BaseModel
+from MealPlannerAgent import MealPlannerAgent
+from threading import Thread
 
 app = FastAPI()
 
@@ -23,9 +24,6 @@ chat_histories: Dict[str, list] = {}
 # Store prompt identifier to system message mapping
 prompt_map: Dict[str, str] = {}
 
-# Configure OpenAI client
-client = openai.OpenAI(api_key='your-api-key')
-
 # Pydantic models for request validation
 class ChatRequest(BaseModel):
     session_id: str
@@ -37,49 +35,9 @@ class ProcessResponse(BaseModel):
     user_message: str
     llm_response: str
 
-def generate_stream(session_id: str, detected_speech: str, system_message: Optional[str] = None) -> Generator[str, None, None]:
-    """
-    Generate streaming response from OpenAI API with optional system message.
-    """
-    try:
-        # Create streaming response from OpenAI
-        messages = []
-        if session_id in chat_histories:
-            messages = chat_histories[session_id]
-        
-        # Add system message if provided
-        if system_message:
-            messages = [{"role": "system", "content": system_message}] + messages
-        
-        messages_plus_current = messages + [{
-            "role": "user",
-            "content": detected_speech
-        }]
-        
-        print("Sending messages to OpenAI:", messages_plus_current)
-        
-        stream = client.chat.completions.create(
-            model="gpt-4",
-            messages=messages_plus_current,
-            stream=True,
-            temperature=0.7,
-            max_tokens=150
-        )
-
-        # Stream the response chunks
-        assistant_message = ""
-        for chunk in stream:
-            if chunk.choices[0].delta.content is not None:
-                content = chunk.choices[0].delta.content
-                assistant_message += content
-                print("Generated content chunk:", content)
-                ## VERY IMPORTANT: ALWAYS YIELD IN THIS EXACT FORMAT. DO NOT CHANGE THIS LINE BELOW.
-                yield f"data: {json.dumps({'content': content})}\n\n"
-
-    except Exception as e:
-        print(f"Error in generate(): {str(e)}")
-        error_msg = json.dumps({'error': str(e)})
-        yield f"data: {error_msg}\n\n"
+@app.get("/")
+def hello_world():
+    return {"message": "Hello World"}
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
@@ -103,7 +61,8 @@ async def chat(request: ChatRequest):
                 )
 
         return StreamingResponse(
-            generate_stream(request.session_id, request.detected_speech, system_message),
+            # Replace this with the generate_stream function from the agent you want to use.
+            MealPlannerAgent(request.session_id, chat_histories).generate_stream(request.detected_speech, system_message),
             media_type='text/event-stream',
             headers={
                 'Cache-Control': 'no-cache',
@@ -142,9 +101,10 @@ async def process_response(request: ProcessResponse):
 
         print(chat_histories[session_id])
 
-        # You can run any further processing here, 
-        # but remember to do any long lasting processing a thread or in the background 
-        # to not block the voice infrastructure from continuing to talk to the user.
+        # Start a new thread to process the response to not block the voice infrastructure
+        # You can run other agents in the background like this as well.
+        process_response_thread = Thread(target=MealPlannerAgent(session_id, chat_histories).process_response, args=(user_message, llm_response))
+        process_response_thread.start()
 
         return JSONResponse(
             content={'status': 'success', 'message': 'Chat history updated'},

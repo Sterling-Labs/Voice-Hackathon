@@ -94,6 +94,11 @@ In this you'll see there are two endpoints;
 - `/chat`: This is where you will recieve what the user said and you stream back your agents response.
 - `/process_response`: This function is called after the AI has responded to the user. You can do any further processing you want here, but remember to do any long lasting processing a thread or in the background to not block the voice infrastructure from continuing to talk to the user.
 
+In the sample_custom_backend you see a sample implementation of a meal planner agent that gives the user guidance on planner their meals in the `/chat` endpoint, and then updates the users grocery list based on the conversation in the `/process_response` endpoint.
+
+You can make copies of the `MealPlannerAgent.py` and modify it to build your own agent.
+If you're making a copy of `MealPlannerAgent.py`, you will need to get an OpenAI API key and put it in the `__init__`
+
 ## Use ngrok to create a public endpoint to your custom backend
 You will need to use ngrok to create a public endpoint to your custom backend.
 Just [make an account on their site and follow the setup instructions](https://dashboard.ngrok.com/get-started/setup/macos)

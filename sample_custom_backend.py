@@ -73,6 +73,7 @@ def generate_stream(session_id: str, detected_speech: str, system_message: Optio
                 content = chunk.choices[0].delta.content
                 assistant_message += content
                 print("Generated content chunk:", content)
+                ## VERY IMPORTANT: ALWAYS YIELD IN THIS EXACT FORMAT. DO NOT CHANGE THIS LINE BELOW.
                 yield f"data: {json.dumps({'content': content})}\n\n"
 
     except Exception as e:
@@ -140,6 +141,10 @@ async def process_response(request: ProcessResponse):
         })
 
         print(chat_histories[session_id])
+
+        # You can run any further processing here, 
+        # but remember to do any long lasting processing a thread or in the background 
+        # to not block the voice infrastructure from continuing to talk to the user.
 
         return JSONResponse(
             content={'status': 'success', 'message': 'Chat history updated'},

@@ -43,7 +43,7 @@ There's two basic steps to using your own prompt
 You are going to make a POST request to our endpoint specifying your prompt (prompt_value) and your org_id and a prompt_key - which is what you will use to refer to this prompt in the `useFBCall` hook.
 
 ### Sample CURL Request
-```basg
+```bash
 curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" \
 -H "Content-Type: application/json" \
 -d '{
@@ -78,22 +78,30 @@ const {isConnected, startCall, endCall, activeConnection} = useFBCall({
 # Agentic Voice Call with Custom Backend
 
 While a single prompt is a great way to get started, with a custom backend, your recieve what the user has said each turn, and return to us whatever you want the voice agent to say in response. 
-
 This way you can take what the user says, use LLMs to update your UI, run multiple prompts on it, change the prompt based on what the users input was, etc and then respond.
 
 Here's how you can setup a custom backend.
 
-## Quick Start with test.py
-TODO: To be filled out
+## Quick Start with sample_custom_backend.py
+
+Start by pip installing fastapi, openai and pydantic.
+Then run the sample custom backend.
+```bash
+python sample_custom_backend.py
+```
+
+In this you'll see there are two endpoints;
+- `/chat`: This is where you will recieve what the user said and you stream back your agents response.
+- `/process_response`: This function is called after the AI has responded to the user. You can do any further processing you want here, but remember to do any long lasting processing a thread or in the background to not block the voice infrastructure from continuing to talk to the user.
 
 ## Use ngrok to create a public endpoint to your custom backend
-TODO: To be filled out
+You will need to use ngrok to create a public endpoint to your custom backend.
 
 ## Use your custom backend in the `useFBCall` hook
 ```typescript
 const {isConnected, startCall, endCall, activeConnection} = useFBCall({
     session_id: SESSION_ID,
-    custom_llm_endpoint: "http://your-custom-backend-endpoint.com/endpoint",
+    custom_llm_endpoint: "http://your-custom-backend-endpoint.com",
 });
 ```
 

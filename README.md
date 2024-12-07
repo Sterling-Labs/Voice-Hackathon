@@ -1,6 +1,6 @@
 # Voice-Hackathon
 
-We @ FocusBuddy built one of the few consumer voice agents that users interact with for 4+ hours a day.
+We @ [FocusBuddy](https://focusbuddy.ai/) built one of the few consumer voice agents that users interact with for 4+ hours a day.
 We wanted to make it easier for developers to build voice agents that work on the web and enable dynamic UIs on top of the voice call.
 
 To do that, we're making this voice agent SDK available to you during the hackathon.

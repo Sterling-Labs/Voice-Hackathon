@@ -18,7 +18,7 @@ You will be able to spin up a website with a voice agent that your users can int
 You can try out a web voice call using our example in the `react-frontend` folder.
 
 ### Run our sample frontend:
-```
+```bash
 cd react-frontend
 npm install
 npm start # This will run the app on http://localhost:3000
@@ -46,7 +46,7 @@ You are going to make a POST request to our endpoint specifying your prompt (pro
 `POST https://hackathon.focusbuddy.ai/api/hackathon-register-prompt`
 
 ### Request Body
-```
+```json
 {
     "prompt_key": "string",    // Identifier for this specific prompt
     "prompt": "string",        // The actual prompt content
@@ -55,7 +55,7 @@ You are going to make a POST request to our endpoint specifying your prompt (pro
 ```
 
 ### Sample CURL Request
-```
+```bash
 curl -X POST "https://hackathon.focusbuddy.ai/api/hackathon-register-prompt" -H "Content-Type: application/json" -d '{"prompt_key": "builder-at-hackathon", "prompt": "You are a builder at a hackthon excited to build a voice AI project", "org_id": "coolteam12345"}'
 ```
 
@@ -76,7 +76,7 @@ This doesn't need to be fancy - it just needs to be unique from other teams!
 You can now start a call using your prompt by specifying the org_id and prompt_key in the `useFBCall` hook.
 
 ### Sample Usage
-```
+```typescript
 const {sConnected, startCall, endCall, activeConnection} = useFBCall({
     session_id: SESSION_ID,
     org_id: "coolTeam12345",
@@ -99,7 +99,7 @@ TODO: To be filled out
 TODO: To be filled out
 
 ## Use your custom backend in the `useFBCall` hook
-```
+```typescript
 const {isConnected, startCall, endCall, activeConnection} = useFBCall({
     session_id: SESSION_ID,
     custom_llm_endpoint: "http://your-custom-backend-endpoint.com/endpoint",
